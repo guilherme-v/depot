@@ -16,10 +16,15 @@
           </p>
           <div class="price">
             <%= number_to_currency(product.price, unit: "R$", separator: ",", delimiter: " ") %>
+            <%= button_to 'Add to Cart', line_items_path(product_id: product) %>
           </div>
         </li>
       <% end %>
     <% end %>
   <% end %>
 </ul>
+
+<div>
+  <h6> <%= pluralize(session[:counter], 'visit') unless session[:counter] <= 4 %></h6>
+</div>
 
