@@ -56,8 +56,8 @@ class ProductsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test 'can not delete a product in cart' do
-    assert_difference(Product.count, 0) do
-      delete product_url(products[:two])
+    assert_difference('Product.count', 0) do
+      delete product_url(products(:two))
     end
 
     assert_redirected_to products_url
