@@ -34,7 +34,8 @@ class LineItemsController < ApplicationController
 
     respond_to do |format|
       if @line_item.save
-        format.html { redirect_to @line_item.cart, notice: "#{product.title} was included successfully" }
+        format.html { redirect_to store_index_url, notice: "#{product.title} was included successfully" }
+        format.js { @most_recently_added_line_item = @line_item }
         format.json { render :show, status: :created, location: @line_item }
       else
         format.html { render :new }
@@ -70,6 +71,7 @@ class LineItemsController < ApplicationController
 
     respond_to do |format|
       format.html { redirect_to @cart, notice: "#{@line_item.product.title} was successfully removed." }
+      format.js { @most_recently_removed_line_item = @line_item }
       format.json { head :no_content }
     end
   end

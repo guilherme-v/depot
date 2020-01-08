@@ -1,0 +1,9 @@
+cart = document.getElementById('cart')
+
+if (cart) {
+    <% if @cart && @cart.line_items.any? %>
+    cart.innerHTML = "<%= j render(@cart) %>"
+    <% else %>
+    cart.style.display = 'none'
+    <% end %>
+}

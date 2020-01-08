@@ -1,0 +1,4 @@
+<% unless @cart.line_items.any? %>
+cart = document.getElementById('cart')
+if (cart) cart.style.display = 'none'
+<% end %>

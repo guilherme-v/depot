@@ -1,16 +1,17 @@
+# frozen_string_literal: true
+
 class ProductsController < ApplicationController
-  before_action :set_product, only: [:show, :edit, :update, :destroy]
+  before_action :set_product, only: %i[show edit update destroy]
 
   # GET /products
   # GET /products.json
   def index
-    @products = Product.all
+    @products = Product.all.order(:title)
   end
 
   # GET /products/1
   # GET /products/1.json
-  def show
-  end
+  def show; end
 
   # GET /products/new
   def new
@@ -18,8 +19,7 @@ class ProductsController < ApplicationController
   end
 
   # GET /products/1/edit
-  def edit
-  end
+  def edit; end
 
   # POST /products
   # POST /products.json
@@ -44,6 +44,12 @@ class ProductsController < ApplicationController
       if @product.update(product_params)
         format.html { redirect_to @product, notice: 'Product was successfully updated.' }
         format.json { render :show, status: :ok, location: @product }
+
+        @products = Product.all.order(:title)
+        @mostly_recently_updated_product = @product
+        ActionCable.server.broadcast 'products',
+                                     html: render_to_string('store/index', layout: false),
+                                     product_updated_id: @product.id
       else
         format.html { render :edit }
         format.json { render json: @product.errors, status: :unprocessable_entity }

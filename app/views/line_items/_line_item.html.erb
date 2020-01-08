@@ -1,0 +1,15 @@
+<% if line_item == @most_recently_added_line_item ||
+    line_item == @most_recently_removed_line_item %>
+  <tr class="line-item-highlight">
+<% else %>
+  <tr>
+<% end %>
+<td class="quantity"><%= line_item.quantity %></td>
+<td><%= line_item.product.title %></td>
+<td class="price"><%= number_to_currency(line_item.total_price) %></td>
+<td> <%= button_to 'Remove',
+                   line_item,
+                   method: :delete,
+                   remote: true,
+                   data: {confirm: 'Are you sure?'} %></td>
+</tr>
