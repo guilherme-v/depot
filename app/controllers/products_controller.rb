@@ -11,7 +11,8 @@ class ProductsController < ApplicationController
 
   # GET /products/1
   # GET /products/1.json
-  def show; end
+  def show;
+  end
 
   # GET /products/new
   def new
@@ -19,7 +20,8 @@ class ProductsController < ApplicationController
   end
 
   # GET /products/1/edit
-  def edit; end
+  def edit;
+  end
 
   # POST /products
   # POST /products.json
@@ -64,6 +66,16 @@ class ProductsController < ApplicationController
     respond_to do |format|
       format.html { redirect_to products_url, notice: 'Product was successfully destroyed.' }
       format.json { head :no_content }
+    end
+  end
+
+  def who_bought
+    @product = Product.find(params[:id])
+    @latest_order = @product.orders.order(:updated_at).last
+    if stale?(@latest_order)
+      respond_to do |format|
+        format.atom
+      end
     end
   end
 
