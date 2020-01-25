@@ -3,6 +3,8 @@ require "application_system_test_case"
 class LineItemsTest < ApplicationSystemTestCase
   setup do
     @line_item = line_items(:one)
+    @cart = carts(:one)
+    @product = products(:ruby)
   end
 
   test "visiting the index" do
@@ -15,11 +17,10 @@ class LineItemsTest < ApplicationSystemTestCase
     click_on "New Line Item"
 
     fill_in "Cart", with: @line_item.cart_id
-    fill_in "Product", with: @line_item.product_id
+    fill_in "Product", with: @product.id
     click_on "Create Line item"
 
-    assert_text "Line item was successfully created"
-    click_on "Back"
+    assert_text "#{@product.title} was included successfully"
   end
 
   test "updating a Line item" do
@@ -40,6 +41,6 @@ class LineItemsTest < ApplicationSystemTestCase
       click_on "Destroy", match: :first
     end
 
-    assert_text "Line item was successfully destroyed"
+    assert_text "was successfully removed"
   end
 end

@@ -36,6 +36,6 @@
 </ul>
 
 <div>
-  <h6> <%= pluralize(session[:counter], 'visit') unless session[:counter] <= 4 %></h6>
+  <h6> <%= pluralize(session[:counter], 'visit') unless session[:counter] == nil || session[:counter] <= 4 %></h6>
 </div>
 

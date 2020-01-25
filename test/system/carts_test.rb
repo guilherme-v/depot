@@ -17,7 +17,6 @@ class CartsTest < ApplicationSystemTestCase
     click_on "Create Cart"
 
     assert_text "Cart was successfully created"
-    click_on "Back"
   end
 
   test "updating a Cart" do
@@ -27,7 +26,6 @@ class CartsTest < ApplicationSystemTestCase
     click_on "Update Cart"
 
     assert_text "Cart was successfully updated"
-    click_on "Back"
   end
 
   test "destroying a Cart" do
@@ -36,6 +34,32 @@ class CartsTest < ApplicationSystemTestCase
       click_on "Destroy", match: :first
     end
 
-    assert_text "Cart was successfully destroyed"
+    assert_text "Your cart is current empty"
+  end
+
+  test 'empty Cart should also hide Cart after' do
+    visit store_index_url
+
+    page.has_no_content?('Your Cart')
+
+    click_on 'Add to Cart', match: :first
+
+    page.has_content?('Your Cart')
+
+    page.accept_confirm do
+      click_on 'Empty cart', match: :first
+    end
+
+    page.has_no_content?('Your Cart')
+  end
+
+  test 'should show Cart when something is added to it' do
+    visit store_index_url
+
+    page.has_no_content?('Your Cart')
+
+    click_on 'Add to Cart', match: :first
+
+    page.has_content?('Your Cart')
   end
 end
