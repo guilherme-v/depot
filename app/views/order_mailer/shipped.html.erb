@@ -1,0 +1,13 @@
+<h3>Pragmatic Order Shipped</h3>
+
+<p>
+  This is just to let you know we shipped your order
+</p>
+
+<table>
+  <tr>
+    <th colspan="2">Qnt</th>
+    <th>Description</th>
+  </tr>
+  <%= render @order.line_items, hide_actions: false %>
+</table>
