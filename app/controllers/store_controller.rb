@@ -1,4 +1,6 @@
 class StoreController < ApplicationController
+  skip_before_action :authorize
+
   include CurrentCart
   include VisitTracker
 
@@ -8,6 +10,4 @@ class StoreController < ApplicationController
     @products = Product.order(:title)
     increase_visit_counter
   end
-
 end
-
